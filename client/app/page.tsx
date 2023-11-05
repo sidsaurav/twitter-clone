@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import SidebarItems from '@/components/SidebarItems'
 import PrimaryButton from '@/components/PrimaryButton'
+import PostCard from '@/components/PostCard'
 
 const page = () => {
   return (
@@ -40,7 +41,10 @@ const page = () => {
       </div>
 
       {/* middle */}
-      <div className='flex-[2_1_0%] border-x-[0.8px] border-primary'></div>
+      <div className='flex-[2_1_0%] border-x-[0.8px] border-primary'>
+        <PostCard name='Siddharth' username='woke_up_sid__' isPremium={true} time='3h' commentCnt={5} retweetCnt={1} likeCnt={11}/>
+        <PostCard name='Shivani' username='itzz_shivvu' isPremium={false} time='5d' commentCnt={1} retweetCnt={2} likeCnt={2}/>
+      </div>
 
       {/* right sidebar */}
       <div className='flex-[1_1_0%]'></div>
