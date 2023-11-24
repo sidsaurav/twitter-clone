@@ -15,13 +15,28 @@ import {
 import SidebarItems from '@/components/SidebarItems'
 import PrimaryButton from '@/components/PrimaryButton'
 import PostCard from '@/components/PostCard'
-import {GoogleLogin} from "@react-oauth/google"
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google"
+import { graphqlClient } from '@/graphql/graphqlClient';
+import { verifyGoogleToken } from '@/graphql/user/query';
+import toast from 'react-hot-toast';
+
+async function handleGoogleOAuth(cred: {clientId: string, credential:string}) {
+  console.log("cred", cred);
+  const token: string = cred.credential
+  if(!token){
+    toast.error("Google token not found!")
+  }
+  const data = await graphqlClient.request(verifyGoogleToken, { token: token })
+  toast.success("Verification sucess!")
+
+  console.log("data", data);
+}
 
 const page = () => {
   return (
     <>
       {/* left sidebar */}
-      <div className='flex-[1_1_0%] pr-8'>
+      <div className='flex-[1_1_0%]'>
         {/* twitter logo */}
         <div className='mb-8'>
           <FontAwesomeIcon icon={faXTwitter} size='2xl' />
@@ -120,8 +135,11 @@ const page = () => {
       </div>
 
       {/* right sidebar */}
-      <div className='flex-[1_1_0%]'>
-        <GoogleLogin onSuccess={cred=>console.log(cred)}/>
+      <div className='flex-[1_1_0%] pl-8'>
+        <div className='p-8 bg-slate-700 rounded-xl'>
+          <h1 className='mb-4 text-xl'>New to Twitter Clone?</h1>
+          <GoogleLogin onSuccess={(cred) => handleGoogleOAuth(cred)} />
+        </div>
       </div>
     </>
   )
