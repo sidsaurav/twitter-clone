@@ -2,6 +2,7 @@ import express from "express"
 import { ApolloServer } from "@apollo/server"
 import { expressMiddleware } from "@apollo/server/express4"
 import {PrismaClient} from "@prisma/client"
+import { User } from "./user/index.js"
 
 const app = express()
 app.use(express.json())
@@ -9,15 +10,16 @@ app.use(express.json())
 const prisma = new PrismaClient()
 
 const typeDefs = ` #graphql
+
+  ${User.types}
+
   type Query {
-    hello: String!
-    hello2(name: String!): String!
+    ${User.queries}
   }
 `
 const resolvers = {
   Query: {
-    hello: () => "hello world",
-    hello2: (parent, { name }: { name: string }) => "hello " + name
+    ...User.resolvers.queries
   }
 }
 

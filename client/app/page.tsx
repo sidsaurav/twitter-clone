@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons'
@@ -13,6 +15,7 @@ import {
 import SidebarItems from '@/components/SidebarItems'
 import PrimaryButton from '@/components/PrimaryButton'
 import PostCard from '@/components/PostCard'
+import {GoogleLogin} from "@react-oauth/google"
 
 const page = () => {
   return (
@@ -117,7 +120,9 @@ const page = () => {
       </div>
 
       {/* right sidebar */}
-      <div className='flex-[1_1_0%]'></div>
+      <div className='flex-[1_1_0%]'>
+        <GoogleLogin onSuccess={cred=>console.log(cred)}/>
+      </div>
     </>
   )
 }
