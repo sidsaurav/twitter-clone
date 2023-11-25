@@ -23,7 +23,7 @@ import toast from 'react-hot-toast';
 
 async function handleGoogleOAuth(cred: CredentialResponse) {
   console.log("cred", cred);
-  const token: string = cred.credential
+  const token: (string | undefined) = cred.credential
   if (!token) {
     toast.error("Google token not found!")
   }
@@ -31,6 +31,7 @@ async function handleGoogleOAuth(cred: CredentialResponse) {
   toast.success("Verification sucess!")
 
   console.log("data", data);
+  window.localStorage.setItem("token", data.verifyGoogleToken)
 }
 
 const page = () => {
