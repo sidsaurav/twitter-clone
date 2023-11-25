@@ -19,11 +19,11 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google"
 import { graphqlClient } from '@/graphql/graphqlClient';
 import { verifyGoogleToken } from '@/graphql/user/query';
 import toast from 'react-hot-toast';
-// import * as types from '@/graphql/types';
+import * as types from '@/gql/graphql';
 
 async function handleGoogleOAuth(cred: CredentialResponse) {
   console.log("cred", cred);
-  const token: (string | undefined) = cred.credential
+  const token: types.Maybe<string> = cred.credential
   if (!token) {
     toast.error("Google token not found!")
   }
