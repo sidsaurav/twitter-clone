@@ -23,15 +23,16 @@ import * as types from '@/gql/graphql';
 
 async function handleGoogleOAuth(cred: CredentialResponse) {
   console.log("cred", cred);
-  const token: types.Maybe<string> = cred.credential
+  const token: any = cred.credential
   if (!token) {
     toast.error("Google token not found!")
   }
-  const data = await graphqlClient.request(verifyGoogleToken, { token: token })
+  // const data = await graphqlClient.request(verifyGoogleToken, { token: token })
+  const data = await graphqlClient.request<types.QueryVerifyGoogleTokenArgs>(verifyGoogleToken, { token: token })
   toast.success("Verification sucess!")
 
   console.log("data", data);
-  window.localStorage.setItem("token", data.verifyGoogleToken)
+  window.localStorage.setItem("token", data.token)
 }
 
 const page = () => {
