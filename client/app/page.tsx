@@ -141,7 +141,7 @@ const page = () => {
       <div className='flex-[1_1_0%] pl-8'>
         <div className='p-8 bg-slate-700 rounded-xl'>
           <h1 className='mb-4 text-xl'>New to Twitter Clone?</h1>
-          <GoogleLogin onSuccess={(cred) => handleGoogleOAuth(cred)} />
+          <GoogleLogin onSuccess={(cred:{credential: string}) => handleGoogleOAuth(cred)} />
         </div>
       </div>
     </>
