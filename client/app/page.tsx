@@ -19,7 +19,7 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google"
 import { graphqlClient } from '@/graphql/graphqlClient';
 import { verifyGoogleToken } from '@/graphql/user/query';
 import toast from 'react-hot-toast';
-// import * as types from '@/graphql/types';
+import * as types from '@/gql/graphql';
 
 async function handleGoogleOAuth(cred: CredentialResponse) {
   console.log("cred", cred);
