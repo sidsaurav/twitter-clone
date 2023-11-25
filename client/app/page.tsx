@@ -21,17 +21,18 @@ import { verifyGoogleToken } from '@/graphql/user/query';
 import toast from 'react-hot-toast';
 import * as types from '@/gql/graphql';
 
-async function handleGoogleOAuth(cred: CredentialResponse) {
+async function handleGoogleOAuth(cred: { credential: string }) {
   console.log("cred", cred);
-  const token: (string | undefined) = cred.credential
+  const token: (string) = cred.credential
   if (!token) {
     toast.error("Google token not found!")
   }
-  const data = await graphqlClient.request(verifyGoogleToken, { token: token })
+  // const data = await graphqlClient.request(verifyGoogleToken, { token: token })
+  const data = await graphqlClient.request<types.QueryVerifyGoogleTokenArgs>(verifyGoogleToken, { token: token })
   toast.success("Verification sucess!")
 
   console.log("data", data);
-  window.localStorage.setItem("token", data.verifyGoogleToken)
+  window.localStorage.setItem("token", data.token)
 }
 
 const page = () => {
@@ -140,7 +141,7 @@ const page = () => {
       <div className='flex-[1_1_0%] pl-8'>
         <div className='p-8 bg-slate-700 rounded-xl'>
           <h1 className='mb-4 text-xl'>New to Twitter Clone?</h1>
-          <GoogleLogin onSuccess={(cred) => handleGoogleOAuth(cred)} />
+          <GoogleLogin onSuccess={(cred:{credential:string}) => handleGoogleOAuth(cred)} />
         </div>
       </div>
     </>
