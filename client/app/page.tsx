@@ -21,7 +21,7 @@ import { verifyGoogleToken } from '@/graphql/user/query';
 import toast from 'react-hot-toast';
 import * as types from '@/gql/graphql';
 
-async function handleGoogleOAuth(cred:any) {
+async function handleGoogleOAuth(cred: {credential: string}) {
   console.log("cred", cred);
   const token: (string) = cred.credential
   if (!token) {
