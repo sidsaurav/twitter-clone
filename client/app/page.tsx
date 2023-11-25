@@ -23,7 +23,7 @@ import * as types from '@/gql/graphql';
 
 async function handleGoogleOAuth(cred: CredentialResponse) {
   console.log("cred", cred);
-  const token: (string | undefined) = cred.credential
+  const token: (string) = cred.credential
   if (!token) {
     toast.error("Google token not found!")
   }
